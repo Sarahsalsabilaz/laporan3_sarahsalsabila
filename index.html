@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan - 03</title>
+
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        form {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            flex: 1 1 30%;
+            display: flex;
+            flex-direction: column;
+            margin: 10px;
+        }
+
+        .form-control label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-control input,
+        .form-control select {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .form-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 10px 10px;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-footer button {
+            background-color: #0066ff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .form-footer button:hover {
+            background-color: #0052cc;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Laporan Praktikum - 03</h1>
+    <form>
+        <div class="form-group">
+            <div class="form-control">
+                <label for="inputName">Masukkan Nama:</label>
+                <input type="text" id="inputName" placeholder="Masukkan Nama Kamu">
+            </div>
+            <div class="form-control">
+                <label for="inputNIM">Masukkan NIM:</label>
+                <input type="text" id="inputNIM" placeholder="Masukkan NIM Kamu">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-control">
+                <label for="inputAsal">Masukkan Asal Kamu:</label>
+                <input type="text" id="inputAsal" placeholder="Masukkan data di sini">
+            </div>
+            <div class="form-control">
+                <label for="selectDosen">Pilih Dosen Favorit:</label>
+                <select id="selectDosen">
+                    <option selected disabled>Pilih salah satu</option>
+                    <option value="Pak Agus Mulyanto">Pak Agus Mulyanto</option>
+                    <option value="Bu Yuni Roza">Bu Yuni Roza</option>
+                    <option value="Bu Yessy Asri">Bu Yessy Asri</option>
+                </select>
+            </div>
+            <div class="form-control">
+                <label for="inputTanggalLahir">Pilih Tanggal Lahir anda</label>
+                <input type="date" id="inputTanggalLahir">
+            </div>
+        </div>
+
+        <div class="form-title">Tulis Hal favorit Kamu:</div>
+
+        <div class="form-group">
+            <div class="form-control">
+                <label for="inputTemanFavorit">Masukkan Nama Teman Favorit</label>
+                <input type="text" id="inputTemanFavorit" placeholder="Contoh: Budi">
+            </div>
+            <div class="form-control">
+                <label for="inputAiFavorit">Masukkan AI Favorit:</label>
+                <input type="text" id="inputAiFavorit" placeholder="Contoh: ChatGPT">
+            </div>
+        </div>
+
+        <div class="form-footer">
+            <button type="submit">Kirim</button>
+        </div>
+    </form>
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        const form = document.querySelector("form");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const nama = document.getElementById("inputName").value.trim();
+            const nim = document.getElementById("inputNIM").value.trim();
+            const asal = document.getElementById("inputAsal").value.trim();
+            const dosen = document.getElementById("selectDosen").value;
+            const tgl = document.getElementById("inputTanggalLahir").value;
+            const teman = document.getElementById("inputTemanFavorit").value.trim();
+            const ai = document.getElementById("inputAiFavorit").value.trim();
+
+            if (!nama || !nim || !asal || dosen === "Pilih salah satu" || !tgl || !teman || !ai) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops!',
+                    text: 'Ada isian yang belum diisi.'
+                });
+                return;
+            }
+
+            const message = `
+                <strong>Nama:</strong> ${nama}<br>
+                <strong>NIM:</strong> ${nim}<br>
+                <strong>Asal:</strong> ${asal}<br>
+                <strong>Dosen Favorit:</strong> ${dosen}<br>
+                <strong>Tanggal Lahir:</strong> ${tgl}<br>
+                <strong>Teman Favorit:</strong> ${teman}<br>
+                <strong>AI Favorit:</strong> ${ai}
+            `;
+
+            Swal.fire({
+                icon: 'info',
+                title: 'Data Kamu:',
+                html: message,
+                confirmButtonText: 'OK'
+            }).then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sukses!',
+                    text: 'Semua data telah dikirim.'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
